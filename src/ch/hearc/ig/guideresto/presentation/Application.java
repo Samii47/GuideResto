@@ -164,7 +164,7 @@ public class Application {
             textIO.getTextTerminal().println(result);
         }
 
-        textIO.getTextTerminal().println("Veuillez saisir le nom exact du restaurant dont vous voulez voir le détail, ou appuyez sur Enter pour revenir en arrière");
+        textIO.getTextTerminal().println("Veuillez saisiir le nom exact du restaurant dont vous voulez voir le détail, ou appuyez sur Enter pour revenir en arrière");
         String choice = readString();
 
         return searchRestaurantByName(restaurants, choice);
