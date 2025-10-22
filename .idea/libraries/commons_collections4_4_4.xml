@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="commons-collections4-4.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/commons-collections4-4.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-csv-1.14.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-io-2.20.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.19.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/user-console0-0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/text-io-3.4.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
