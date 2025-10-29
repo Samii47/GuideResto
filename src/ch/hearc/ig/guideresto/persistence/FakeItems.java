@@ -56,22 +56,35 @@ public class FakeItems {
                 city,
                 typeSuisse
         );
-
-        restaurant.getEvaluations().add(new BasicEvaluation(1, new Date(), restaurant, true, "1.2.3.4"));
-        restaurant.getEvaluations().add(new BasicEvaluation(2, new Date(), restaurant, true, "1.2.3.5"));
-        restaurant.getEvaluations().add(new BasicEvaluation(3, new Date(), restaurant, false, "1.2.3.6"));
+        // LazyLoad --> Créer d'abord les évaluations dans un Set temporaire
+        Set<Evaluation> evaluations1 = new LinkedHashSet<>();
+        evaluations1.add(new BasicEvaluation(1, new Date(), restaurant, true, "1.2.3.4"));
+        evaluations1.add(new BasicEvaluation(2, new Date(), restaurant, true, "1.2.3.5"));
+        evaluations1.add(new BasicEvaluation(3, new Date(), restaurant, false, "1.2.3.6"));
 
         CompleteEvaluation ce = new CompleteEvaluation(1, new Date(), restaurant, "Génial !", "Toto");
-        ce.getGrades().add(new Grade(1, 4, ce, critService));
-        ce.getGrades().add(new Grade(2, 5, ce, critCuisine));
-        ce.getGrades().add(new Grade(3, 4, ce, critCadre));
-        restaurant.getEvaluations().add(ce);
 
-        ce = new CompleteEvaluation(2, new Date(), restaurant, "Très bon", "Titi");
-        ce.getGrades().add(new Grade(4, 4, ce, critService));
-        ce.getGrades().add(new Grade(5, 4, ce, critCuisine));
-        ce.getGrades().add(new Grade(6, 4, ce, critCadre));
-        restaurant.getEvaluations().add(ce);
+        // LazyLoad --> Créer les grades dans un set temporaire
+        Set<Grade> grades1 = new LinkedHashSet<>();
+        grades1.add(new Grade(1, 4, ce, critService));
+        grades1.add(new Grade(2, 5, ce, critCuisine));
+        grades1.add(new Grade(3, 4, ce, critCadre));
+        ce.setGrades(grades1);
+
+        evaluations1.add(ce);
+
+        CompleteEvaluation ce2 = new CompleteEvaluation(2, new Date(), restaurant, "Très bon", "Titi");
+
+        Set<Grade> grades2 = new LinkedHashSet<>();
+        grades2.add(new Grade(4, 4, ce2, critService));
+        grades2.add(new Grade(5, 4, ce2, critCuisine));
+        grades2.add(new Grade(6, 4, ce2, critCadre));
+        ce2.setGrades(grades2);
+
+        evaluations1.add(ce2);
+
+        // LazyLoad : Utiliser setEvaluations au lieu de getEvaluations().add()
+        restaurant.setEvaluations(evaluations1);
 
         restaurants.add(restaurant);
 
@@ -84,20 +97,30 @@ public class FakeItems {
                 city,
                 typeGastro
         );
-        restaurant2.getEvaluations().add(new BasicEvaluation(4, new Date(), restaurant2, true, "1.2.3.7"));
-        restaurant2.getEvaluations().add(new BasicEvaluation(5, new Date(), restaurant2, true, "1.2.3.8"));
-        restaurant2.getEvaluations().add(new BasicEvaluation(6, new Date(), restaurant2, true, "1.2.3.9"));
-        ce = new CompleteEvaluation(3, new Date(), restaurant2, "Un régal !", "Dupont");
-        ce.getGrades().add(new Grade(7, 5, ce, critService));
-        ce.getGrades().add(new Grade(8, 5, ce, critCuisine));
-        ce.getGrades().add(new Grade(9, 5, ce, critCadre));
-        restaurant2.getEvaluations().add(ce);
 
-        ce = new CompleteEvaluation(2, new Date(), restaurant2, "Rien à dire, le top !", "Dupasquier");
-        ce.getGrades().add(new Grade(10, 5, ce, critService));
-        ce.getGrades().add(new Grade(11, 5, ce, critCuisine));
-        ce.getGrades().add(new Grade(12, 5, ce, critCadre));
-        restaurant2.getEvaluations().add(ce);
+        // LazyLoad --> Créer d'abord les évaluations dans un Set temporaire
+        Set<Evaluation> evaluations2 = new LinkedHashSet<>();
+        evaluations2.add(new BasicEvaluation(4, new Date(), restaurant2, true, "1.2.3.7"));
+        evaluations2.add(new BasicEvaluation(5, new Date(), restaurant2, true, "1.2.3.8"));
+        evaluations2.add(new BasicEvaluation(6, new Date(), restaurant2, true, "1.2.3.9"));
+
+        CompleteEvaluation ce3 = new CompleteEvaluation(3, new Date(), restaurant2, "Un régal !", "Dupont");
+        Set<Grade> grades3 = new LinkedHashSet<>();
+        grades3.add(new Grade(7, 5, ce3, critService));
+        grades3.add(new Grade(8, 5, ce3, critCuisine));
+        grades3.add(new Grade(9, 5, ce3, critCadre));
+        ce3.setGrades(grades3);
+        evaluations2.add(ce3);
+
+        CompleteEvaluation ce4 = new CompleteEvaluation(4, new Date(), restaurant2, "Rien à dire, le top !", "Dupasquier");
+        Set<Grade> grades4 = new LinkedHashSet<>();
+        grades4.add(new Grade(10, 5, ce4, critService));
+        grades4.add(new Grade(11, 5, ce4, critCuisine));
+        grades4.add(new Grade(12, 5, ce4, critCadre));
+        ce4.setGrades(grades4);
+        evaluations2.add(ce4);
+
+        restaurant2.setEvaluations(evaluations2);
 
         restaurants.add(restaurant2);
     }

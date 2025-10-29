@@ -14,7 +14,7 @@ public class Restaurant {
     private String name;
     private String description;
     private String website;
-    private Set<Evaluation> evaluations;
+    private Set<Evaluation> evaluations = null;
     private Localisation address;
     private RestaurantType type;
 
@@ -27,7 +27,7 @@ public class Restaurant {
         this.name = name;
         this.description = description;
         this.website = website;
-        this.evaluations = new HashSet();
+        this.evaluations = null;
         this.address = new Localisation(street, city);
         this.type = type;
     }
@@ -37,7 +37,7 @@ public class Restaurant {
         this.name = name;
         this.description = description;
         this.website = website;
-        this.evaluations = new HashSet();
+        this.evaluations = null;
         this.address = address;
         this.type = type;
     }
@@ -75,7 +75,15 @@ public class Restaurant {
     }
 
     public Set<Evaluation> getEvaluations() {
+        if(evaluations == null) {
+            loadEvaluations();
+        }
         return evaluations;
+    }
+
+    private void loadEvaluations() {
+        System.out.println("Lazy Load : Chargement des évaluations du restaurant " + this.name);
+        this.evaluations = new HashSet<>();
     }
 
     public void setEvaluations(Set<Evaluation> evaluations) {
@@ -99,6 +107,7 @@ public class Restaurant {
     }
 
     public boolean hasEvaluations() {
-        return CollectionUtils.isNotEmpty(evaluations);
+        return CollectionUtils.isNotEmpty(getEvaluations());
     }
+
 }

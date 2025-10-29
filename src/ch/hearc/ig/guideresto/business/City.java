@@ -11,7 +11,7 @@ public class City {
     private Integer id;
     private String zipCode;
     private String cityName;
-    private Set<Restaurant> restaurants;
+    private Set<Restaurant> restaurants = null;
 
     public City() {
         this(null, null);
@@ -25,7 +25,7 @@ public class City {
         this.id = id;
         this.zipCode = zipCode;
         this.cityName = cityName;
-        this.restaurants = new HashSet();
+        this.restaurants = null;
     }
 
     public Integer getId() {
@@ -53,7 +53,15 @@ public class City {
     }
 
     public Set<Restaurant> getRestaurants() {
+        if(restaurants == null) {
+            loadRestaurants();
+        }
         return restaurants;
+    }
+
+    private void loadRestaurants() {
+        System.out.println("Lazy Load : Chargement des restaurants de " + this.cityName);
+        this.restaurants = new HashSet<>();
     }
 
     public void setRestaurants(Set<Restaurant> restaurants) {

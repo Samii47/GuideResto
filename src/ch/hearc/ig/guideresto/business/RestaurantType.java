@@ -11,7 +11,7 @@ public class RestaurantType {
     private Integer id;
     private String label;
     private String description;
-    private Set<Restaurant> restaurants;
+    private Set<Restaurant> restaurants = null;
 
     public RestaurantType() {
         this(null, null);
@@ -22,7 +22,7 @@ public class RestaurantType {
     }
 
     public RestaurantType(Integer id, String label, String description) {
-        this.restaurants = new HashSet();
+        this.restaurants = null;
         this.id = id;
         this.label = label;
         this.description = description;
@@ -58,7 +58,15 @@ public class RestaurantType {
     }
 
     public Set<Restaurant> getRestaurants() {
+        if (restaurants == null) {
+            loadRestaurants();
+        }
         return restaurants;
+    }
+
+    private void loadRestaurants() {
+        System.out.println("Lazy Load : Chargement des restaurants de type " + this.label);
+        this.restaurants = new HashSet<>();
     }
 
     public void setRestaurants(Set<Restaurant> restaurants) {

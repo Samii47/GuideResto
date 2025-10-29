@@ -12,7 +12,7 @@ public class CompleteEvaluation extends Evaluation {
 
     private String comment;
     private String username;
-    private Set<Grade> grades;
+    private Set<Grade> grades = null;
 
     public CompleteEvaluation() {
         this(null, null, null, null);
@@ -26,7 +26,7 @@ public class CompleteEvaluation extends Evaluation {
         super(id, visitDate, restaurant);
         this.comment = comment;
         this.username = username;
-        this.grades = new HashSet();
+        this.grades = null;
     }
 
     public String getComment() {
@@ -46,7 +46,15 @@ public class CompleteEvaluation extends Evaluation {
     }
 
     public Set<Grade> getGrades() {
+        if (grades == null) {
+            loadGrades();
+        }
         return grades;
+    }
+
+    private void loadGrades() {
+        System.out.println("Lazy Load : Chargement des notes de l'évaluation #" + this.getId());
+        this.grades = new HashSet<>();
     }
 
     public void setGrades(Set<Grade> grades) {

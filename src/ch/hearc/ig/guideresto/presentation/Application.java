@@ -11,9 +11,8 @@ import java.net.UnknownHostException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.spi.CalendarDataProvider;
 import org.beryx.textio.TextIO;
-import org.beryx.textio.TextTerminal;
+
 import org.beryx.textio.TextIoFactory;
 
 
